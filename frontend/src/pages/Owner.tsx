@@ -44,27 +44,73 @@ const Owner = () => {
     }
   };
 
-  if (loading) return <p>Loading courses...</p>;
+  if (loading) return (
+    <div className="flex justify-center items-center h-64">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+    </div>
+  );
 
   return (
-    <div>
-      <h2>Owner Courses</h2>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px" }}>
+    <div className="container mx-auto px-4 py-8">
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-3xl font-bold text-gray-800">My Courses</h2>
+        <button 
+          onClick={() => navigate('/add')}
+          className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300"
+        >
+          Add New Course
+        </button>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {courses.map((course) => (
-          <div key={course._id} style={{ border: "1px solid #ddd", padding: "10px", borderRadius: "5px" }}>
+          <div 
+            key={course._id} 
+            className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+          >
             <img 
-              src={course.image || "https://via.placeholder.com/150"} 
+              src={course.image || "https://img.freepik.com/free-vector/online-courses-concept_23-2148533386.jpg"} 
               alt={course.title} 
-              style={{ width: "100%", height: "150px", objectFit: "cover", borderRadius: "5px" }} 
+              className="w-full h-48 object-cover"
             />
-            <h3>{course.title}</h3>
-            <p>{course.category}</p>
-            <p>{course.details}</p>
-            <button onClick={() => handleEdit(course._id)} style={{ marginRight: "5px" }}>Edit</button>
-            <button onClick={() => handleDelete(course._id)} style={{ backgroundColor: "red", color: "white" }}>Delete</button>
+            
+            <div className="p-6">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">{course.title}</h3>
+              <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mb-3">
+                {course.category}
+              </span>
+              <p className="text-gray-600 mb-4">{course.details}</p>
+              
+              <div className="flex space-x-2">
+                <button 
+                  onClick={() => handleEdit(course._id)}
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300"
+                >
+                  Edit
+                </button>
+                <button 
+                  onClick={() => handleDelete(course._id)}
+                  className="flex-1 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
           </div>
         ))}
       </div>
+      
+      {courses.length === 0 && !loading && (
+        <div className="text-center py-12">
+          <p className="text-gray-500 text-lg">You haven't created any courses yet.</p>
+          <button 
+            onClick={() => navigate('/add')}
+            className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300"
+          >
+            Create Your First Course
+          </button>
+        </div>
+      )}
     </div>
   );
 };

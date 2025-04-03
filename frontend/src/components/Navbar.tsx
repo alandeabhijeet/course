@@ -12,7 +12,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const token = localStorage.getItem("authToken"); // Get the token
+      const token = localStorage.getItem("authToken");
       if (!token) {
         setIsAuthenticated(false);
         navigate("/login");
@@ -23,12 +23,12 @@ const Navbar = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Send token in Authorization header
+          Authorization: `Bearer ${token}`,
         },
       });
   
       if (response.ok) {
-        localStorage.removeItem("authToken"); // Remove token after successful logout
+        localStorage.removeItem("authToken");
         setIsAuthenticated(false);
         navigate("/login");
       } else {
@@ -41,19 +41,64 @@ const Navbar = () => {
   
 
   return (
-    <nav className="navbar">
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/buy">Buy</Link></li>
-        <li><Link to="/owner">Owner</Link></li>
-        <li><Link to="/add">Add Course</Link></li>
-        
-        {isAuthenticated ? (
-          <li><button onClick={handleLogout}>Logout</button></li>
-        ) : (
-          <li><Link to="/login">Login</Link></li>
-        )}
-      </ul>
+    <nav className="bg-gray-600 shadow-lg">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="flex justify-between">
+          <div className="flex space-x-7">
+            <div className="flex items-center py-4 px-2">
+              <span 
+                className="font-semibold text-white text-lg cursor-pointer hover:text-blue-200 transition duration-300"
+                onClick={() => navigate("/courses")}
+              >
+                Course Platform
+              </span>
+            </div>
+          </div>
+          
+          <div className="hidden md:flex items-center space-x-1">
+            <Link 
+              to="/" 
+              className="py-4 px-2 text-white font-semibold hover:text-blue-200 transition duration-300"
+            >
+              Home
+            </Link>
+            <Link 
+              to="/buy" 
+              className="py-4 px-2 text-white font-semibold hover:text-blue-200 transition duration-300"
+            >
+              Buy
+            </Link>
+            <Link 
+              to="/owner" 
+              className="py-4 px-2 text-white font-semibold hover:text-blue-200 transition duration-300"
+            >
+              Owner
+            </Link>
+            <Link 
+              to="/add" 
+              className="py-4 px-2 text-white font-semibold hover:text-blue-200 transition duration-300"
+            >
+              Add Course
+            </Link>
+            
+            {isAuthenticated ? (
+              <button 
+                onClick={handleLogout}
+                className="py-2 px-3 bg-white text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition duration-300 ml-2"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link 
+                to="/login" 
+                className="py-2 px-3 bg-white text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition duration-300 ml-2"
+              >
+                Login
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
     </nav>
   );
 };
