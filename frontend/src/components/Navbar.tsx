@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-
+const VITE_logout = import.meta.env.VITE_logout;
 const Navbar = () => {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -19,7 +19,7 @@ const Navbar = () => {
         return;
       }
   
-      const response = await fetch("http://localhost:5002/api/auth/logout", {
+      const response = await fetch(VITE_logout, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

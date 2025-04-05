@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "@/contexts/AuthContext";
-
+const VITE_IMAGE = import.meta.env.VITE_IMAGE;
+const VITE_course_items = import.meta.env.VITE_course_items;
+const VITE_add_buy_course = import.meta.env.VITE_add_buy_course;
 const Courses = () => {
   const { token } = useAuth();
   const [courses, setCourses] = useState([]);
@@ -12,7 +14,7 @@ const Courses = () => {
       if (!token) return;
 
       try {
-        const coursesResponse = await axios.get("http://localhost:5001/api/courses/items", {
+        const coursesResponse = await axios.get(VITE_course_items, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -35,7 +37,7 @@ const Courses = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5002/api/auth/add-buy-course",
+        VITE_add_buy_course,
         { courseId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -64,7 +66,7 @@ const Courses = () => {
             className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
           >
             <img 
-              src={course.image || "https://img.freepik.com/free-vector/online-courses-concept_23-2148533386.jpg"} 
+              src={course.image ||VITE_IMAGE} 
               alt={course.title} 
               className="w-full h-48 object-cover"
             />

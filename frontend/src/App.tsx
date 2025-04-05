@@ -9,7 +9,6 @@ import Buy from "@/pages/Buy";
 import Owner from "@/pages/Owner";
 import Add from "@/pages/Add";
 import Edit from "@/pages/Edit";
-import CourseDetails from "@/pages/CourseDetails";
 import NotFound from "@/pages/NotFound";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
@@ -22,7 +21,6 @@ const App = () => (
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
 
-          {/* ✅ PROTECTED ROUTE: Only logged-in users can access `/courses` */}
           <Route path="courses" element={<ProtectedRoute />}>
             <Route index element={<Courses />} />
           </Route>
@@ -41,11 +39,6 @@ const App = () => (
 
           <Route path="edit/:id" element={<ProtectedRoute />}>
             <Route index element={<Edit />} />
-          </Route>
-
-          {/* ✅ PROTECTED COURSE DETAILS */}
-          <Route path="courses/:id" element={<ProtectedRoute />}>
-            <Route index element={<CourseDetails />} />
           </Route>
 
           <Route path="*" element={<NotFound />} />

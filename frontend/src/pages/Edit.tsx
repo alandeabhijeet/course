@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "@/contexts/AuthContext";
-
+const VITE_course_item = import.meta.env.VITE_course_item;
 const EditCourse = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const EditCourse = () => {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const response = await axios.get(`http://localhost:5001/api/courses/item/${id}`, {
+        const response = await axios.get(`${VITE_course_item}/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setTitle(response.data.title);
@@ -39,7 +39,7 @@ const EditCourse = () => {
     e.preventDefault();
     try {
       await axios.put(
-        `http://localhost:5001/api/courses/item/${id}`, 
+        `${VITE_course_item}/${id}`, 
         { title, category, details, available, userId }, 
         {
           headers: { 

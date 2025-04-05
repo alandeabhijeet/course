@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+const VITE_course_item = import.meta.env.VITE_course_item;
 const Add: React.FC = () => {
+  console.log("VITE_course_item", VITE_course_item);
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
   const [category, setCategory] = useState("development");
@@ -16,7 +17,7 @@ const Add: React.FC = () => {
 
     try {
       const courseResponse = await axios.post(
-        "http://localhost:5001/api/courses/item",
+        VITE_course_item,
         { title, details, category, available },
         { headers: { Authorization: `Bearer ${token}` } }
       );

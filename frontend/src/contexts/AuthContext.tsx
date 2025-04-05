@@ -3,7 +3,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext(null);
-
+const VITE_verify = import.meta.env.VITE_verify;
+const VITE_login = import.meta.env.VITE_login;
+const VITE_signup = import.meta.env.VITE_signup;
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("authToken"));
@@ -19,7 +21,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
-        const response = await axios.get("http://localhost:5002/api/auth/verify-token", {
+        const response = await axios.get(VITE_verify, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -44,7 +46,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (username, password) => {
     try {
       setIsLoading(true);
-      const response = await axios.post("http://localhost:5002/api/auth/login", { username, password });
+      const response = await axios.post(VITE_login, { username, password });
 
       if (response.data.token) {
         localStorage.setItem("authToken", response.data.token);
@@ -62,7 +64,7 @@ export const AuthProvider = ({ children }) => {
   const signup = async (username, password) => {
     try {
       setIsLoading(true);
-      const response = await axios.post("http://localhost:5002/api/auth/signup", { username, password });
+      const response = await axios.post(VITE_signup, { username, password });
 
       if (response.data.token) {
         localStorage.setItem("authToken", response.data.token);
