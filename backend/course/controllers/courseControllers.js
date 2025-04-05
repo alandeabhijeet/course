@@ -1,5 +1,6 @@
 const Course = require("../models/course");
-const USER_SERVICE_URL = "http://localhost:5002/api/auth";
+require('dotenv').config();
+const USER_SERVICE_URL = process.env.USER_SERVICE_URL;
 const axios = require("axios");
 
 module.exports.getCourses = async (req, res) => {

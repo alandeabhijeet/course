@@ -8,9 +8,10 @@ const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
 
 const port = process.env.PORT ;
+const reacturl = process.env.Frontend_URL
 
 connectDB();
-app.use(cors({ origin: "http://localhost:8080", credentials: true })); 
+app.use(cors({ origin: reacturl, credentials: true })); 
 app.use(cookieParser());
 
 app.use(express.json()); 
